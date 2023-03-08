@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import addTodos from './components/createList';
+import completedTodo from './components/completedist';
+import deleteTodo from './components/deletedList';
 
 interface ITodos {
   text: string;
@@ -17,7 +20,7 @@ function App() {
     setValue('');
   };
 
-//new todo list
+  //new todo list
    const addTodos = (text: string): void => {
     const newList: ITodos[]=[...todos, {text, completed: false}];
     setTodos(newList)
@@ -39,33 +42,38 @@ function App() {
     setTodos(newList);
 
 
-  }
+  } 
 
   
 
   return(
     <>
     <div className='container'>
+
+      <h1>My Todo List</h1>
+
       <form onSubmit={handleSubmit}>
-        <input onChange={(e) => setValue(e.target.value)} required type="text"/>
+        <input placeholder='write it down!' onChange={(e) => setValue(e.target.value)} required type="text"/>
         <button type="submit">&#10010;</button>
       </form>
+
       <ul>
         {todos.map((todo: ITodos, index:number)=> (
-        <li
-          style={{ textDecoration: todo.completed ? 'line-through' : ''}} key={index}>
+        <li style={{ textDecoration: todo.completed ? 'line-through rgb(116, 156, 108)' : '', } } key={index}>
 
             {todo.text}
-            <button type='button' onClick={()=> completedTodo(index)}>
+            
+            <button className='btn1' type='button' onClick={()=> completedTodo(index)}>
               {todo.completed ? 'undo' : 'completed'} &#10004;
               
             </button>
 
-            <button type='button' onClick={() => deleteTodo (index)}
+            <button className='btn2' type='button' onClick={() => deleteTodo (index)}
             > &#10006; </button>
         </li>
         ))}
       </ul>
+
     </div>
     </>
   )
